@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RecipeStoreRequest;
 use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
@@ -26,9 +27,16 @@ class RecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RecipeStoreRequest $request)
     {
-        //
+        return RecipeResource::make(
+            Recipe::create([
+                'name' => $request->name,
+                'instructions' => $request->instructions,
+                'category' => $request->category,
+                'user_id' => $request->userId
+            ])
+        );
     }
 
     /**
