@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipe_favorites', function (Blueprint $table) {
+        Schema::create('user_favorites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('recipe_id')->constrained();
             $table->foreignId('user_id')->constrained();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipe_favorites');
+        Schema::dropIfExists('user_favorites');
     }
 };
