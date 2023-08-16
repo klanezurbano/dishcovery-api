@@ -22,7 +22,7 @@ class RecipeController extends Controller
             $query->where('category', $request->category);
         }
 
-        return RecipeResource::collection($query->get());
+        return RecipeResource::collection($query->with('user')->get());
     }
 
     /**
@@ -45,7 +45,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        return RecipeResource::make($recipe);
+        return RecipeResource::make($recipe->loadMissing('recipeIngredients')->loadMissing('user'));
     }
 
     /**

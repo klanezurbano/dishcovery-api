@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        User::factory(10)
-            ->has(Recipe::factory(6)->hasRecipeIngredients(5))
+        User::factory(30)
+            ->has(Recipe::factory(60)->hasRecipeIngredients(20))
             ->create();
 
         UserFavorite::factory(20)->create();

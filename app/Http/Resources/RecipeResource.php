@@ -20,6 +20,8 @@ class RecipeResource extends JsonResource
             'instructions' => $this->instructions,
             'imageUrl' => $this->image_url,
             'category' => $this->category,
+            'recipeIngredients' => RecipeIngredientResource::collection($this->whenLoaded('recipeIngredients')),
+            'author' => UserResource::make($this->whenLoaded('user')),
         ];
     }
 }
