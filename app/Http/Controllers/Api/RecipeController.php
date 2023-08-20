@@ -22,7 +22,7 @@ class RecipeController extends Controller
             $query->where('category', $request->category);
         }
 
-        return RecipeResource::collection($query->with('user')->get());
+        return RecipeResource::collection($query->with('user')->paginate());
     }
 
     /**
@@ -30,14 +30,23 @@ class RecipeController extends Controller
      */
     public function store(RecipeStoreRequest $request)
     {
-        return RecipeResource::make(
-            Recipe::create([
-                'name' => $request->name,
-                'instructions' => $request->instructions,
-                'category' => $request->category,
-                'user_id' => $request->userId
-            ])
-        );
+        $recipe = Recipe::create([
+            'name' => $request->name,
+            'instructions' => $request->instructions,
+            'category' => $request->category,
+            'user_id' => $request->userId
+        ]);
+
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->storePubliclyAs('public/recipes', $fileName);
+
+            $recipe->image_url = 'storage/recipes/' . $fileName;
+            $recipe->save();
+        }
+        return RecipeResource::make($recipe);
     }
 
     /**
@@ -51,8 +60,9 @@ class RecipeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(RecipeUpdateRequest $request, Recipe $recipe)
+    public function update(Request $request, Recipe $recipe)
     {
+        return 'world';
         if (isset($request->name)) {
             $recipe->name = $request->name;
         }

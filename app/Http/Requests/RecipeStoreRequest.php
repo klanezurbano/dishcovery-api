@@ -27,7 +27,8 @@ class RecipeStoreRequest extends FormRequest
             'name' => 'required',
             'instructions' => 'required',
             'category' => 'required',
-            'userId' => 'required|exists:users,id'
+            'userId' => 'required|exists:users,id',
+            'thumbnail' => 'required',
         ];
     }
 
