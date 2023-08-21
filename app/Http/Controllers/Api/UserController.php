@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\Recipe;
 use App\Models\RecipeIngredient;
 use App\Models\User;
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return UserResource::collection(User::get());
     }
 
     /**
@@ -24,7 +25,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return 'store';
     }
 
     /**
@@ -32,7 +33,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return 'show';
     }
 
     /**
@@ -40,7 +41,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return 'update';
     }
 
     /**

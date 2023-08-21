@@ -52,17 +52,18 @@ class RecipeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Recipe $recipe)
+    public function show($id)
     {
+        $recipe = Recipe::find($id);
         return RecipeResource::make($recipe->loadMissing('recipeIngredients')->loadMissing('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Recipe $recipe)
+    public function update(Request $request, $id)
     {
-        return 'world';
+        $recipe = Recipe::find($id);
         if (isset($request->name)) {
             $recipe->name = $request->name;
         }
@@ -87,8 +88,9 @@ class RecipeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Recipe $recipe)
+    public function destroy($id)
     {
+        $recipe = Recipe::find($id);
         $recipe->delete();
 
         return response()->json([
