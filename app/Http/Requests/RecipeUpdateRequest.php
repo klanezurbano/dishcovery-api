@@ -27,7 +27,6 @@ class RecipeUpdateRequest extends FormRequest
             'name' => 'sometimes|required',
             'instructions' => 'sometimes|required',
             'category' => 'sometimes|required',
-            'userId' => 'sometimes|required|exists:users,id',
         ];
     }
 

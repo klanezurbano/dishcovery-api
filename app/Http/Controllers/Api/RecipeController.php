@@ -8,6 +8,7 @@ use App\Http\Requests\RecipeUpdateRequest;
 use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -30,11 +31,13 @@ class RecipeController extends Controller
      */
     public function store(RecipeStoreRequest $request)
     {
+        $user = Auth::user();
+
         $recipe = Recipe::create([
             'name' => $request->name,
             'instructions' => $request->instructions,
             'category' => $request->category,
-            'user_id' => $request->userId
+            'user_id' => $user->id,
         ]);
 
         if ($request->hasFile('thumbnail')) {
@@ -74,10 +77,6 @@ class RecipeController extends Controller
 
         if (isset($request->category)) {
             $recipe->category = $request->category;
-        }
-
-        if (isset($request->userId)) {
-            $recipe->user_id = $request->userId;
         }
 
         $recipe->save();
